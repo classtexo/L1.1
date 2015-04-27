@@ -1,4 +1,7 @@
 package com.java.lessons.l2.abst.lib;
+
+//Revize 20150426 1400
+
 import java.util.Date;
 
 /*Ukol:
@@ -35,7 +38,14 @@ public abstract class TaskAbstract {
   	    return id; 
   	    }
  
-public TaskAbstract(int id, String description, String length, Date due_to,
+/** Abstraktni trida - konstruktor 
+ * @param description
+ * @param length
+ * @param due_to
+ * @param name
+ * id se generuje samo
+ */
+public TaskAbstract(String description, String length, Date due_to,
 		String name) {  //konstruktor pro mnoho parm
 	super();
 	this.id = taskIdIndex;
@@ -47,13 +57,22 @@ public TaskAbstract(int id, String description, String length, Date due_to,
 	this.isClosed = false;
 }
 
-public TaskAbstract(int id, String description) {
+/** Abstraktni trida - konstruktor 
+ * @param description
+ * id se generuje samo
+ */
+public TaskAbstract( String description) {
 	super();           //konstruktor pro omezeny pocet parm
-	this.id = id;
+	this.id = taskIdIndex;
+	taskIdIndex ++;
 	this.description = description;
 }
 
 
+/**
+ * @param id
+ * Bacha - normalne se ale generuje samo pri instanciaci !!!
+ */
 public void setId(int id) {
 	this.id = id;
 }

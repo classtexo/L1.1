@@ -1,4 +1,7 @@
 package com.java.lessons.l2.abst.lib;
+
+//Revize 20150426 1400
+
 import java.util.Date;
 import com.java.lessons.l2.abst.lib.Issue;
 
@@ -25,10 +28,20 @@ public class ProgrammersTask extends TaskAbstract{
 	private Issue[] issues;    //list by byl pro programovani efektivnejsi
 	
 	//kdyz vsechny issues splneny tak getIsSolved vratie true; Specialitka Overridingu
+
+    /**
+     * ProgrammersTask je potomek TaskAbstract.  Agreguje do sebe Issues
+     * 
+     * @param description
+     * @param length
+     * @param dueTo
+     * @param name
+     * @param Issue[] issues
+     */	
 	
-	public ProgrammersTask(int id, String description, String length,
+	public ProgrammersTask( String description, String length,
 			Date dueTo, String name,Issue[] issues) {
-		super(id, description, length, dueTo, name);
+		super(description, length, dueTo, name);
 		this.issues = issues; 
 		this.isClosed = false;
 	}
@@ -42,14 +55,25 @@ public class ProgrammersTask extends TaskAbstract{
 		 return sOut;
 	 }	
 	
+	/**
+	 * @return vrati pocet issues
+	 */
 	public int getIssuesCount() {
 		return issues.length;
 	}
 	
-	public void closeIssues() {
+	/** Pokusi se uzavrit Issues. Pokud nejsou vsechy FIXED hodi to chybu
+	 * v opacnem pripade to i nastavi Issue na SOLVED
+	 * @throws ExceptionClosingTask
+	 */
+	public void closeIssues() throws ExceptionClosingTask {
 	  for (Issue iSsue: this.issues) {
-		  iSsue.setState(Issue.StateVals.SOLVED);
-		  this.isSolved = true;
+		         if (iSsue.getState() != Issue.StateVals.FIXED) {
+		        	 throw new  ExceptionClosingTask("Chyba uzavirani tasku", iSsue.getState());
+		         }
+		         iSsue.setState(Issue.StateVals.SOLVED);
+		         this.isSolved = true;
+		         // jaktoze mi to pri exception shodi vechno a dalsi task uz to nezprocesuje?
 	  }
 	}
 

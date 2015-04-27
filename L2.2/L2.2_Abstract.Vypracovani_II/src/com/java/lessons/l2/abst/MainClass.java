@@ -1,11 +1,14 @@
 package com.java.lessons.l2.abst;
 
+// Revize 20150426 1400
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import com.java.lessons.l2.abst.lib.EnumStatus;
+import com.java.lessons.l2.abst.lib.ExceptionClosingTask;
 import com.java.lessons.l2.abst.lib.TaskHelper;
 import com.java.lessons.l2.abst.lib.SysTaskDate;
 import com.java.lessons.l2.abst.lib.Issue;
@@ -77,7 +80,7 @@ if (sLeft == sRight) System.out.println("Left john= Right john");*/
 	The Object class  << odpoved blba
 	Any class or interface << OK
 	It must extend an interface*/
-
+ 
 
 public class MainClass {
 	public List<TaskAbstract> collectionTasks;
@@ -92,14 +95,20 @@ public class MainClass {
 		
 		TaskHelper.printIssuesCount();
 		
-		TaskAbstract taskTemp = new PersonalTask(0,"Prvni ukol","Tyden.length", SysTaskDate.inWeek() ,"Jmeno ukolu");
+		// Pozn David z jeho SRC
+		// tady je chyba mas constructor na id, ale pak ho v predkovi nastavujes
+		// pomoci static promenne :);
+		
+		
+		
+		TaskAbstract taskTemp = new PersonalTask("Prvni ukol","Tyden.length", SysTaskDate.inWeek() ,"Jmeno ukolu");
 		collectionTasks.add( taskTemp);
-		collectionTasks.add( new PersonalTask(0,"Druhy ukol","den.length",SysTaskDate.inDay(),"Jmeno ukolu2"));
-		collectionTasks.add( new PersonalTask(0,"Treti ukol","mesic.length",SysTaskDate.dayToday(),"Jmeno ukolu3"));
+		collectionTasks.add( new PersonalTask("Druhy ukol","den.length",SysTaskDate.inDay(),"Jmeno ukolu2"));
+		collectionTasks.add( new PersonalTask("Treti ukol","mesic.length",SysTaskDate.dayToday(),"Jmeno ukolu3"));
 
 		
 		Issue[] programmersTaskIssues = {  new Issue("SYS3 Exc.error",1),  new Issue("Throw error",2)}; 
-		TaskAbstract ptaskTemp = new ProgrammersTask(0,"Modul 5 - errors","Week",SysTaskDate.inWeek(),"SunDance Application", programmersTaskIssues);
+		TaskAbstract ptaskTemp = new ProgrammersTask("Modul 5 - errors","Week",SysTaskDate.inWeek(),"SunDance Application", programmersTaskIssues);
 		collectionTasks.add( ptaskTemp);
 		programmersTaskIssues = null;
 		
@@ -115,7 +124,7 @@ public class MainClass {
 		programmersTaskIssues[1]= new Issue("Enexceptional call error",4);	
 		programmersTaskIssues[2]= new Issue("Doplnek",4);	
 		
-		ptaskTemp = new ProgrammersTask(0,"Modul 1 - fix","Week",SysTaskDate.inWeek(),"Support Apps", programmersTaskIssues);
+		ptaskTemp = new ProgrammersTask("Modul 1 - fix","Week",SysTaskDate.inWeek(),"Support Apps", programmersTaskIssues);
 		collectionTasks.add( ptaskTemp);		
 		
 		
@@ -124,7 +133,13 @@ public class MainClass {
 		taskPers.setDateSolved(SysTaskDate.dayToday());
 
 		ProgrammersTask taskProg = (ProgrammersTask) collectionTasks.get(4);
-		taskProg.closeIssues();		
+		
+		try {
+			taskProg.closeIssues();
+		} catch (ExceptionClosingTask e) {
+			System.out.println("a toto je uz v main class");
+			e.printStackTrace();
+		}		
 		
 	//  BACHA ByRef poznamka!!!!!	
 		collectionTasks.get(2).setDescription("nova hodnota"); //<< tento zpusob nepreferovat

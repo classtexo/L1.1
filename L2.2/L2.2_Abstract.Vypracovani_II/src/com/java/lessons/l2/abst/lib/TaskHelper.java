@@ -1,5 +1,7 @@
 package com.java.lessons.l2.abst.lib;
 
+//Revize 20150426 1400
+
 import java.util.List;
 /* tato trida nepujde instanciovat (nepujde mi zavolat konstruktor) 
 */
@@ -37,6 +39,9 @@ public static boolean closeSolvedTasks() {
 }
 
 
+/**
+ * Vytiskne pocet issues u vsech programatoru (je to ve static counteru)
+ */
 public static void printIssuesCount(){
   if (Issue.getIssuesCount()>=0) {
 	  System.out.println("Issues count : " + (int) ( Issue.getIssuesCount() + 1)  ); 

@@ -1,10 +1,27 @@
 package com.java.lessons.l2.abst.lib;
+
+//Revize 20150426 1400
+
 /*Trida Issue: Id, Name, State, severenity
 
 Podtrida ProgrammersTask: dedi od TaskAbstract
 atributy isSolved
 Issues - obsahuje vazby na Issue (agreguje do sebe Issues)
 metoda getIssuesCount*/
+
+/**
+ * Trida pro Issue, vlastni atributy name,state a severity
+ * obsahuje metody  ??? neni jak je vylistovat automaticky?
+ * 
+ * Preddefinovane konstruktory
+ *  - Issue()
+ *  - Issue(String name, int severity)
+ *  
+ * Metody : Get/Set + getIssuesCount() 
+ *  
+ * @author Main_User
+ *
+ */
 
 public class Issue {
   int id = -1;
@@ -19,19 +36,30 @@ public String  toString() {
 	return sOut; 
 }
   
- public Issue() {
+ /**
+ * 
+ */
+
+public Issue() {
 	 issueIdIndex ++;
 	  this.id = issueIdIndex;
 	  this.state = StateVals.CREATED;
   }
   
-  public Issue(String name, int severity) {
+  /**
+ * @param name
+ * @param severity
+ */
+public Issue(String name, int severity) {
 	  issueIdIndex ++;
 	  this.id = issueIdIndex;
 	  this.name = name;
 	  this.state = StateVals.CREATED;
   }  
   
+/**
+ * @return
+ */
 public static int getIssuesCount(){
 	return issueIdIndex;
 }
